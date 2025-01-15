@@ -34,7 +34,9 @@ async function getWeatherData(city){
   const response = await fetch(apiUrl);
 
   if(!response.ok){
-    throw new Error("Could not fetch weather data");
+    const customError = new Error ("Location / data not found. Check Spelling");
+    customError.name = "";
+    throw customError;
   }
 
   return await response.json();
@@ -63,7 +65,7 @@ function displayWeatherInfo(data){
 
           cityDisplay.textContent = city;
           tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
-          tempMin,tempMax.textContent = `Lows of ${(temp_min - 273.15).toFixed(1)}°C & highs of ${(temp_max - 273.15).toFixed(1)}°C `
+          tempMin.textContent = `Lows: ${(temp_min - 273.15).toFixed(1)}°C | Highs: ${(temp_max - 273.15).toFixed(1)}°C`;
           feelsLike.textContent = `Feels like: ${(feels_like - 273.15).toFixed(1)}°C`;
           humidityDisplay.textContent = `Humidity: ${humidity}%`;
           windSpeed.textContent = `Wind speed: ${speed} mph`;
@@ -173,7 +175,7 @@ async function updateMarqueeWeather() {
 
     marqueeContent.textContent = `${weatherText} | ${weatherText}`;
   } catch (error){
-    console.error("Error updating marquee", error);
+    console.error("Failed to load.", error);
   }
 }
 
