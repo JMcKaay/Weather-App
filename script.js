@@ -49,6 +49,7 @@ function displayWeatherInfo(data){
 
           card.textContent ="";
           card.style.display = "flex";
+          card.style.background = getCardColor(id);
 
           const cityDisplay = document.createElement("h1");
           const tempDisplay = document.createElement("p");
@@ -103,7 +104,7 @@ function getWeatherEmoji(weatherId){
       case (weatherId >= 300 && weatherId < 400):
         return "🌧";
         case (weatherId >= 500 && weatherId < 600):
-          return "🌨";
+          return "🌧";
           case (weatherId >= 600 && weatherId < 700):
             return "❄";
             case (weatherId >= 700 && weatherId < 800):
@@ -128,3 +129,54 @@ function displayError(message){
     card.appendChild(errorDisplay);
     
 }
+
+
+function getCardColor(weatherId){
+  switch(true){
+    case (weatherId >= 200 && weatherId < 300):
+      return "linear-gradient(0deg, rgba(194,195,195,1) 0%, rgba(88,88,88,1) 73%)";
+      case (weatherId >= 300 && weatherId < 400):
+        return "linear-gradient(0deg, rgba(180,207,207,1) 0%, rgba(88,88,88,1) 73%)";
+        case (weatherId >= 500 && weatherId < 600):
+          return "linear-gradient(0deg, rgba(180,207,207,1) 0%, rgba(88,88,88,1) 73%)";
+          case (weatherId >= 600 && weatherId < 700):
+            return "linear-gradient(0deg, rgba(205,232,235,1) 0%, rgba(162,162,162,1) 73%)";
+            case (weatherId >= 700 && weatherId < 800):
+              return "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(166,166,166,1) 73%)";
+              case (weatherId === 800):
+                return "linear-gradient(8deg, rgba(144,222,221,1) 0%, rgba(254,255,202,0.8) 73%)";
+                case (weatherId >= 801 && weatherId < 810):
+                  return "linear-gradient(176deg, rgba(178,189,189,1) 0%, rgba(255,255,255,1) 73%)";
+                  default:
+                    return "linear-gradient(45deg, rgba(142,246,228,0.9529061624649859) 0%, rgba(152,150,241,0.9585084033613446) 98%)"
+  }
+}
+
+
+
+
+
+const majorCities = [ "London", "New York", "Tokyo", "Paris", "Dubai",
+    "Singapore", "Hong Kong", "Sydney", "Mumbai", "Toronto"];
+
+async function updateMarqueeWeather() {
+  const marqueeContent = document.querySelector('.GeneratedMarquee');
+  let weatherText = "";
+
+  try { 
+    for (const city of majorCities) {
+      const data = await getWeatherData(city);
+      const temp = (data.main.temp - 273.15).toFixed(1);
+      const emoji = getWeatherEmoji(data.weather[0].id);
+      weatherText += `${city}: ${temp}°C ${emoji}     |    `;
+    }
+
+    marqueeContent.textContent = `${weatherText} | ${weatherText}`;
+  } catch (error){
+    console.error("Error updating marquee", error);
+  }
+}
+
+
+updateMarqueeWeather();
+setInterval(updateMarqueeWeather,600000);

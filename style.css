@@ -1,11 +1,27 @@
 body{
   font-family: Arial, sans-serif;
-  background-color:bisque;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(168deg,#33a2bf,#ffe4c4);
+  background-size: 120% 120%;
+  animation: gradient-animation 14s ease infinite;
 }
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 .weatherForm{
   margin: 20px;
@@ -18,7 +34,7 @@ body{
   padding: 10px;
   font-size: 2rem;
   font-weight: bold;
-  border: 2px solid hsl(red, 10%, 10%);
+  border: 2px solid;
   border-radius: 10px;
   margin: 10px;
   width: 30%;
@@ -28,20 +44,29 @@ button[type="submit"]{
   padding: 10px 20px;
   font-weight: bold;
   font-size: 2rem;
-  background-color: hsl(84, 100%, 59%);
-  color: white; 
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
+  border: solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  transition: 2s;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 50px;
+  background: rgb(64, 199, 47);
+  --hover-bgc: #6dff05;
+  --hover-color: #000000;
+  --hover-borderc: #ffffff;
 }
 
 button[type="submit"]:hover{
-  background-color: hsla(84, 56%, 48%, 0.521);
+    color: rgb(0, 0, 0);
+    background: rgb(109, 255, 5) none repeat scroll 0% 0% / auto padding-box border-box;
+    border-color: rgb(255, 255, 255);
+    border-width: 2px;
+    border-style: solid;
 }
 
 .card{
-  background: rgb(55,226,236);
-  background: linear-gradient(0deg, rgba(55,226,236,1) 0%, rgba(253,226,45,0.9528186274509804) 73%);
+  backdrop-filter: blur(6px) saturate(85%);
+  -webkit-backdrop-filter: blur(6px) saturate(85%);
   padding:50px;
   box-shadow: 2px 2px 5px hsl(0, 0%, 0%, 0.5);
   border-radius: 5%;
@@ -89,4 +114,14 @@ p{
   font-size: 2.5rem;
   font-weight: bold;
   color: hsla(0, 0%, 0%, 0.756);
+}
+
+.GeneratedMarquee {
+  font-size: 2.5rem;
+  backdrop-filter: blur(5px) saturate(115%);
+  -webkit-backdrop-filter: blur(5px) saturate(115%);
+  background-color: rgba(199,199,199, 0.21);
+  border-radius: 12px;
+  border: 0px solid rgba(209, 213, 219, 0.18);
+  padding: 1.5rem;
 }
